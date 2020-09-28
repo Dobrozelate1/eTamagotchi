@@ -14,6 +14,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class Controller {
 
     List<SelectionMenu> selectPetList;
     //    private Pets selectPet;
-    private iPet iselectPet;
+    private iPet iSelectPet;
 
     private Dog dog = new Dog();
     private Cat cat = new Cat();
@@ -115,7 +116,7 @@ public class Controller {
                         select.setIsFilledCircle(false);
                     }
                     menu.setIsFilledCircle(true);
-                    iselectPet = menu.getiPet();
+                    iSelectPet = menu.getiPet();
                 }
             });
         }
@@ -133,25 +134,31 @@ public class Controller {
         startButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if (iselectPet != null) {
+                if (iSelectPet != null) {
                     GameWindowManager gameManager = new GameWindowManager();
                     try {
                         FileInputStream fileInputStream = new FileInputStream("src/main/resources/save.game" );
                         ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-                        iselectPet = (iPet) objectInputStream.readObject();
-                        System.out.println("возраст после чтения  "+ iselectPet.getAge());
-                    } catch (IOException | ClassNotFoundException e ) {
+//                        iSelectPet = (iPet) objectInputStream.readObject();
+//                        System.out.println("возраст после чтения  "+ iSelectPet.getAge());
+//                        checkAge(iSelectPet.getAge());
+
+                    } catch (IOException   e ) {
                         e.printStackTrace();
                     }
 
-                    gameManager.startNewGame(mainStage, iselectPet);
+                    gameManager.startNewGame(mainStage, iSelectPet);
                 }
             }
         });
-
         return startButton;
     }
-
+private void checkAge(long age){
+    if(age == 0){
+        System.out.println("AAAUUUUUUUUUUUUUUUU");
+        iSelectPet.setLastFeed(LocalDateTime.now());
+    }
+}
 
     private void createButton() {
         createStartButton();
@@ -162,10 +169,10 @@ public class Controller {
     }
 
     private void createStartButton() {
-        MenuButton startButton = new MenuButton("Start" );
-        addMenuButton(startButton);
+        MenuButton feedButton = new MenuButton("Start" );
+        addMenuButton(feedButton);
 
-        startButton.setOnAction(new EventHandler<ActionEvent>() {
+        feedButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 subSceneAppeared(choosePetSubScene);
@@ -173,18 +180,6 @@ public class Controller {
         });
 
     }
-//    private void createFeedButton() {
-//        MenuButton startButton = new MenuButton("Feed");
-//        addMenuButton(startButton);
-//
-//        startButton.setOnAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent event) {
-//                subSceneAppeared(feedPetSubScene);
-//            }
-//        });
-//
-//    }
 
     private void addMenuButton(MenuButton menuButton) {
         menuButton.setLayoutX(menuStartPositionOfButtonX);

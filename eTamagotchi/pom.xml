@@ -19,16 +19,7 @@
             <artifactId>commons-lang3</artifactId>
             <version>3.11</version>
         </dependency>
-        <dependency>
-            <groupId>org.reflections</groupId>
-            <artifactId>reflections</artifactId>
-            <version>0.9.10</version>
-        </dependency>
-        <dependency>
-            <groupId>io.github.classgraph</groupId>
-            <artifactId>classgraph</artifactId>
-            <version>4.8.37</version>
-        </dependency>
+
     </dependencies>
 
 </project>

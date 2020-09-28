@@ -10,7 +10,6 @@ public class MainMenu extends Application {
             Controller controller = new Controller();
             primaryStage = controller.getMainStage();
             primaryStage.setResizable(false);
-
             primaryStage.show();
 
     }

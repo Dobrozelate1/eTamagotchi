@@ -18,8 +18,8 @@ public class InfoLabel extends Label {
     private final static String fontPath = "src/main/resources/text_font.ttf";
 
     public InfoLabel(String text){
-        setPrefWidth(150);
-        setPrefHeight(40);
+        setPrefWidth(200);
+        setPrefHeight(0);
 //        BackgroundImage backgroundImage = new BackgroundImage(,
 //                BackgroundRepeat.NO_REPEAT,
 //                BackgroundRepeat.NO_REPEAT,
@@ -28,7 +28,7 @@ public class InfoLabel extends Label {
 //        setBackground(new Background(backgroundImage));
         setAlignment(Pos.CENTER_RIGHT);
         setLabelFont();
-        setPadding(new Insets(-650,10,10,10));
+        setPadding(new Insets(-650,10,-50,-100));
         setText(text);
     }
     private void setLabelFont(){
