@@ -40,13 +40,11 @@ public class GameWindowManager {
     private Stage menuStage;
     private ImageView petImage;
 
-//    private final static String bookPath = "book.png";
-//    private final static String vasePath = "vase.png";
 
     //    private ImageViewBook[] book;
 //    private ImageViewVase[] vase;
-    private ImageView[] book;
-    private ImageView[] vase;
+    private ImageViewBook[] book;
+    private ImageViewVase[] vase;
     private ImageView food;
     private Random positionGenerator;
 
@@ -401,7 +399,7 @@ public class GameWindowManager {
         if (startMiniGame) {
 
         for (int i = 0; i < book.length; i++) {
-            if (miniGameElementRadius + miniGamePetRadius > distanceBetweenElements(
+            if (book[i].getElementRadius() + currentPet.getPetRadius() > distanceBetweenElements(
                     petImage.getLayoutX()+105, book[i].getLayoutX()+55,
                     petImage.getLayoutY()+95, book[i].getLayoutY()+25)) {
                 removeLife();
@@ -409,7 +407,7 @@ public class GameWindowManager {
             }
         }
         for (int i = 0; i < vase.length; i++) {
-            if (miniGameElementRadius + miniGamePetRadius > distanceBetweenElements(
+            if (vase[i].getElementRadius() + currentPet.getPetRadius() > distanceBetweenElements(
                     petImage.getLayoutX()+105, vase[i].getLayoutX()+55,
                     petImage.getLayoutY()+95, vase[i].getLayoutY()+55)) {
 
@@ -423,9 +421,10 @@ public class GameWindowManager {
     //    ******
     private void removeLife() {
 //        gamePane.getChildren().remove(heart[playerLife]);
-        gamePane.getChildren().remove(heart[currentPet.getLifes()]);
+        gamePane.getChildren().remove(heart[currentPet.getLifes()-1]);
         currentPet.setLifes(currentPet.getLifes() - 1);
-        if (currentPet.getLifes() < 0) {
+        if (currentPet.getLifes() == 0) {
+            currentPet.setTimeDead(LocalDateTime.now());
             gameStage.close();
             gameTimer.stop();
             menuStage.show();

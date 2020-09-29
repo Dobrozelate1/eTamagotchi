@@ -1,5 +1,6 @@
 import Models.AdditionalHeadline;
 import Models.MenuButton;
+import Pets.Pet;
 import TamagotchiScenes.SelectionMenu;
 import Pets.Cat;
 import Pets.Dog;
@@ -141,23 +142,30 @@ public class Controller {
                         ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
 //                        iSelectPet = (iPet) objectInputStream.readObject();
 //                        System.out.println("возраст после чтения  "+ iSelectPet.getAge());
-                        checkAge(iSelectPet.getAge());
+                        checkDead(iSelectPet.getAge());
 
                     } catch (IOException e ) {
                         e.printStackTrace();
                     }
 
-                    gameManager.startNewGame(mainStage, iSelectPet);
+                    if (iSelectPet.isCanBeBorn()) {
+                        if (iSelectPet.getTimeDead() != null) {
+                            iSelectPet = new Pet();
+                        }
+
+                        gameManager.startNewGame(mainStage, iSelectPet);
+                    }
                 }
             }
         });
         return startButton;
     }
-    private void checkAge(long age){
+    private void checkDead(long age){
         if(age == 0){
             System.out.println("AAAUUUUUUUUUUUUUUUU");
             iSelectPet.setLastFeed(LocalDateTime.now());
         }
+
     }
 
     private void createButton() {

@@ -9,7 +9,7 @@ public class Pet implements iPet, Serializable {
     private final boolean canBeBorn = true;
     private LocalDateTime timeDead;
     private LocalDateTime lastFeed;
-    private int lifes = 2;
+    private int lifes = 3;
     private final static int petRadius = 55;
 
 
@@ -19,15 +19,13 @@ public class Pet implements iPet, Serializable {
     public LocalDateTime getTimeDead() {
         return timeDead;
     }
+    public void setTimeDead(LocalDateTime timeDead) {
+        this.timeDead = timeDead; isCanBeBorn();
+    }
 
     public boolean isHunger() {
         return hunger;
     }
-
-    public void setTimeDead(LocalDateTime timeDead) {
-        this.timeDead = timeDead;
-    }
-
     public void setHunger(boolean hunger) {
         this.hunger = hunger;
     }
@@ -47,14 +45,9 @@ public class Pet implements iPet, Serializable {
     public String getName() {
         return name;
     }
-
-//    public String getHeartPath() {
-//        return heartPath;
-//    }
-
     public boolean isCanBeBorn() {
 
-        if (ChronoUnit.MINUTES.between(timeDead, LocalDateTime.now()) < 5) {
+        if (timeDead!=null && (ChronoUnit.MINUTES.between(timeDead, LocalDateTime.now()) < 5)) {
             return !canBeBorn;
         } else return canBeBorn;
 
@@ -73,6 +66,7 @@ public class Pet implements iPet, Serializable {
 
 
     public void setLifes(int lifes) {
+
         this.lifes = lifes;
     }
 
@@ -80,7 +74,7 @@ public class Pet implements iPet, Serializable {
         return lifes;
     }
 
-    public static int getPetRadius() {
+    public int getPetRadius() {
         return petRadius;
     }
 

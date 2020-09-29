@@ -5,10 +5,7 @@ import java.time.LocalDateTime;
 public interface iPet {
 
     public LocalDateTime getTimeDead();
-
-
     public void setTimeDead(LocalDateTime timeDead);
-
     public boolean isHunger();
 
     public void setHunger(boolean hunger);
@@ -32,6 +29,7 @@ public interface iPet {
     public void setLifes(int lifes);
 
     public int getLifes();
+    public int getPetRadius() ;
 
 
     default String getIdleImageOfPet() {
@@ -54,5 +52,6 @@ public interface iPet {
         return String.format(
                 "pets/%s_feed.png", petType);
     }
+
 
 }
