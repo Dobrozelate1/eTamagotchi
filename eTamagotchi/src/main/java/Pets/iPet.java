@@ -4,32 +4,32 @@ import java.time.LocalDateTime;
 
 public interface iPet {
 
-    public LocalDateTime getTimeDead();
-    public void setTimeDead(LocalDateTime timeDead);
-    public boolean isHunger();
+    LocalDateTime getTimeDead();
+     void setTimeDead(LocalDateTime timeDead);
+    boolean isHunger();
 
-    public void setHunger(boolean hunger);
+     void setHunger(boolean hunger);
 
-    public long getAge();
+     long getAge();
 
-    public void setAge(long age);
+     void setAge(long age);
 
-    public void setName(String name);
+    void setName(String name);
 
-    public String getName();
+     String getName();
 
-    public boolean isCanBeBorn();
+   boolean isCanBeBorn();
 
 //    public void setCanBeBorn(boolean canBeBorn) ;
 
-    public LocalDateTime getLastFeed();
+    LocalDateTime getLastFeed();
 
-    public void setLastFeed(LocalDateTime lastFeed);
+     void setLastFeed(LocalDateTime lastFeed);
 
-    public void setLifes(int lifes);
+     void setLifes(int lifes);
 
-    public int getLifes();
-    public int getPetRadius() ;
+    int getLifes();
+     int getPetRadius() ;
 
 
     default String getIdleImageOfPet() {

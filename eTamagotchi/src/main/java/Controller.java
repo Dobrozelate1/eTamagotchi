@@ -1,5 +1,5 @@
 import Models.AdditionalHeadline;
-import Models.MenuButton;
+import Models.BigMainButton;
 import Pets.Pet;
 import TamagotchiScenes.SelectionMenu;
 import Pets.Cat;
@@ -29,7 +29,7 @@ public class Controller {
     private final static int menuStartPositionOfButtonX = 33;
     private final static int menuStartPositionOfButtonY = 80;
 
-    List<MenuButton> menuButtonList;
+    List<BigMainButton> bigMainButtonList;
 
     List<SelectionMenu> selectPetList;
     private iPet iSelectPet;
@@ -44,7 +44,7 @@ public class Controller {
 
     public Controller() {
 
-        menuButtonList = new ArrayList<>();
+        bigMainButtonList = new ArrayList<>();
         mainPane = new AnchorPane();
         mainScne = new Scene(mainPane, 530, 560);
         mainStage = new Stage();
@@ -110,15 +110,12 @@ public class Controller {
         for (SelectionMenu menu : userSelectedPet) {
             selectPetList.add(menu);
             petBox.getChildren().add(menu);
-            menu.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    for (SelectionMenu select : selectPetList) {
-                        select.setIsFilledCircle(false);
-                    }
-                    menu.setIsFilledCircle(true);
-                    iSelectPet = menu.getiPet();
+            menu.setOnMouseClicked(event -> {
+                for (SelectionMenu select : selectPetList) {
+                    select.setIsFilledCircle(false);
                 }
+                menu.setIsFilledCircle(true);
+                iSelectPet = menu.getiPet();
             });
         }
 
@@ -128,33 +125,30 @@ public class Controller {
 
     }
 
-    private MenuButton createPlayButton() {
-        MenuButton startButton = new MenuButton("Play" );
+    private BigMainButton createPlayButton() {
+        BigMainButton startButton = new BigMainButton("Play" );
         startButton.setLayoutY(250);
         startButton.setLayoutX(30);
-        startButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                if (iSelectPet != null) {
-                    GameWindowManager gameManager = new GameWindowManager();
-                    try {
-                        FileInputStream fileInputStream = new FileInputStream("src/main/resources/save.game" );
-                        ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-//                        iSelectPet = (iPet) objectInputStream.readObject();
-//                        System.out.println("возраст после чтения  "+ iSelectPet.getAge());
-                        checkDead(iSelectPet.getAge());
+        startButton.setOnAction(event -> {
+            if (iSelectPet != null) {
+                GameWindowManager gameManager = new GameWindowManager();
+                try {
+                    FileInputStream fileInputStream = new FileInputStream("src/main/resources/save.game" );
+                    ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+                    iSelectPet = (iPet) objectInputStream.readObject();
+                    System.out.println("возраст после чтения  "+ iSelectPet.getAge());
+                    checkDead(iSelectPet.getAge());
 
-                    } catch (IOException e ) {
-                        e.printStackTrace();
+                } catch (IOException | ClassNotFoundException e ) {
+                    e.printStackTrace();
+                }
+
+                if (iSelectPet.isCanBeBorn()) {
+                    if (iSelectPet.getTimeDead() != null) {
+                        iSelectPet = new Pet();
                     }
 
-                    if (iSelectPet.isCanBeBorn()) {
-                        if (iSelectPet.getTimeDead() != null) {
-                            iSelectPet = new Pet();
-                        }
-
-                        gameManager.startNewGame(mainStage, iSelectPet);
-                    }
+                    gameManager.startNewGame(mainStage, iSelectPet);
                 }
             }
         });
@@ -177,28 +171,23 @@ public class Controller {
     }
 
     private void createStartButton() {
-        MenuButton startButton = new MenuButton("Start" );
+        BigMainButton startButton = new BigMainButton("Start" );
         addMenuButton(startButton);
 
-        startButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                subSceneAppeared(choosePetSubScene);
-            }
-        });
+        startButton.setOnAction(event -> subSceneAppeared(choosePetSubScene));
 
     }
 
-    private void addMenuButton(MenuButton menuButton) {
-        menuButton.setLayoutX(menuStartPositionOfButtonX);
-        menuButton.setLayoutY(menuStartPositionOfButtonY + menuButtonList.size() * 80);
-        menuButtonList.add(menuButton);
-        mainPane.getChildren().add(menuButton);
+    private void addMenuButton(BigMainButton bigMainButton) {
+        bigMainButton.setLayoutX(menuStartPositionOfButtonX);
+        bigMainButton.setLayoutY(menuStartPositionOfButtonY + bigMainButtonList.size() * 80);
+        bigMainButtonList.add(bigMainButton);
+        mainPane.getChildren().add(bigMainButton);
 
     }
 
     private void createScoreButton() {
-      MenuButton  scoretButton = new MenuButton("Score" );
+      BigMainButton scoretButton = new BigMainButton("Score" );
         addMenuButton(scoretButton);
         scoretButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -210,7 +199,7 @@ public class Controller {
 
 
     private void createHelpButton() {
-        MenuButton helpButton = new MenuButton("Help" );
+        BigMainButton helpButton = new BigMainButton("Help" );
         addMenuButton(helpButton);
 
         helpButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -223,7 +212,7 @@ public class Controller {
     }
 
     private void createExitButton() {
-        MenuButton exitButton = new MenuButton("Exit" );
+        BigMainButton exitButton = new BigMainButton("Exit" );
         addMenuButton(exitButton);
         exitButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
